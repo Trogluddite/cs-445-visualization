@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}CSV Upload{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    <label for="quarter">Quarter (Q1-Q4)</label>
+    <input name="quarter" id="quarter" required>
+    <label for="year">Year (E.G., 2024)</label>
+    <input name="year" id="year" required>
+    <label for="filename">Filename</label>
+    <input type="file" name="filename" id="filename" required>
+    <input type="submit" value="Upload">
+  </form>
+{% endblock %}
