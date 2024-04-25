@@ -12,11 +12,11 @@ CREATE TABLE user (
 );
 
 CREATE TABLE survey_instances (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   instance_name TEXT NOT NULL,
   quarter TEXT NOT NULL,
-  year TEXT NOT NULL
+  year TEXT NOT NULL,
+  PRIMARY KEY (quarter, year)
 );
 
 CREATE TABLE constructs (
@@ -117,7 +117,7 @@ CREATE TABLE survey_datapoints (
   CHECK (policies_discoverable IN(1, 2, 3, 4, 5)),
   CHECK (policies_meaningful IN(1, 2, 3, 4, 5)),
 
-  FOREIGN KEY (survey_instance) REFERENCES survey_instances(id),
+  FOREIGN KEY (survey_instance) REFERENCES survey_instances,
   FOREIGN KEY (will_complete) REFERENCES question(construct_name),
   FOREIGN KEY (fail_learn_opportunity) REFERENCES question(construct_name),
   FOREIGN KEY (responsibility_shared) REFERENCES question(construct_name),
