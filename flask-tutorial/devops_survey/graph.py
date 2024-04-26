@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-from flaskr.db import get_db
+from devops_survey.db import get_db
 
 bp = Blueprint('graph', __name__, url_prefix='/graph')
 plt.switch_backend('Agg') #don't draw GUI windows that won't be seen

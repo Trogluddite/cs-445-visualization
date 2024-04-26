@@ -5,7 +5,7 @@ from flask import (
     Blueprint, current_app, flash, g, redirect, render_template, request, session, url_for
 )
 from werkzeug.utils import secure_filename
-from flaskr.db import get_db
+from devops_survey.db import get_db
 
 ALLOWED_EXTENSIONS = {'csv'}
 
