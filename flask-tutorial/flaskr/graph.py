@@ -53,7 +53,7 @@ def showInstance():
     for b in bars:
         if b.get_height() >= 3.8:
             b.set_color('darkgreen')
-        elif b.get_height() < 3.8 and b.get_height() > 2.6:
+        elif b.get_height() < 3.8 and b.get_height() > 2.8:
             b.set_color('khaki')
         else:
            b.set_color('crimson')
