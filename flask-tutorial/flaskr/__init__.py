@@ -34,24 +34,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
-
-    @app.route('/graph')
-    def graph():
-    	# Generate the figure **without using pyplot**.
-    	fig = Figure()
-    	ax = fig.subplots()
-    	ax.plot([1, 2])
-    	# Save it to a temporary buffer.
-    	buf = BytesIO()
-    	fig.savefig(buf, format="png")
-    	# Embed the result in the html output.
-    	data = base64.b64encode(buf.getbuffer()).decode("ascii")
-    	return f"<img src='data:image/png;base64,{data}'/>"
-
     from . import db
     db.init_app(app)
 
@@ -64,6 +46,9 @@ def create_app(test_config=None):
 
     from . import upload
     app.register_blueprint(upload.bp)
+
+    from . import graph
+    app.register_blueprint(graph.bp)
 
     return app
 

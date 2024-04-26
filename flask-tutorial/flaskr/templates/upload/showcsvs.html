@@ -5,11 +5,18 @@
 {% endblock %}
 
 {% block content %}
-<ul>
+<table>
+  <tr> 
+    <th> Survey Instance </th>
+    <th> Graphs </th>
+  </tr>
   {% for file in files %}
-    <li> {{ file }} </li>
+    <tr> 
+      <td> {{ file }} </td>
+      <td> <a href="{{ url_for('graph.showInstance', filename=file) }}"> Graph </a> </td>
+    </tr>
   {% endfor %}
-</ul>
+</table>
 <a href="{{ url_for('upload.upcsv') }}">
   Upload Another
 </a>

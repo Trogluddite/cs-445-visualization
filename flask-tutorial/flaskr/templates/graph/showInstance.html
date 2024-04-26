@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Survey Graph{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <img src="data:image/png;base64,{{data}}"/>
+  <div>
+  <a href="{{ url_for('upload.showcsvs') }}">
+  Back to CSVs list
+</a>
+{% endblock %}
+
