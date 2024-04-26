@@ -65,7 +65,7 @@ INSERT INTO questions(question_name, construct_id) SELECT 'policies_meaningful',
 
 CREATE TABLE survey_datapoints (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  response_timestamp TIMESTAMP NOT NULL,
+  response_timestamp DATETIME NOT NULL,
   quarter text NOT NULL,
   year text NOT NULL,
   will_complete int NOT NULL,

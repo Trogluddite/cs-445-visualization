@@ -54,16 +54,17 @@ def upcsv():
         # TODO: check these by regex
         quarter = request.form['quarter']
         year = request.form['year']
-        filename = request.files['filename']
+        file_obj = request.files['filename']
+
+        survey_instance_name = (file_obj.filename).split('.')[0] #drop the extension
 
         db = get_db()
         has_instance = db.execute(
            f'SELECT COUNT(*) as count FROM survey_instances WHERE quarter="{quarter}" AND year="{year}"'
             ).fetchone()['count']
         if not has_instance:
-            print("doing insert")
             db.execute(
-                f'INSERT INTO survey_instances(instance_name, quarter, year) VALUES("{filename}", "{quarter}", "{year}")'
+                f'INSERT INTO survey_instances(instance_name, quarter, year) VALUES("{survey_instance_name}", "{quarter}", "{year}")'
             )
             db.commit()
         # check if the post request has the file part
@@ -90,7 +91,6 @@ def upcsv():
 def insert_csv(file_path, quarter, year):
     fieldnames = list(HEADING_MAP.values())
     db = get_db()
-    error = None
     with open(file_path, newline='') as csvfile:
         reader = csv.DictReader(csvfile, fieldnames)
         next(reader, None)
@@ -99,24 +99,19 @@ def insert_csv(file_path, quarter, year):
             # assume non-answers are 'Strongly Disagree'
             if(row['will_complete'] ==''):
                 row['will_complete'] = 'Strongly Disagree'
-            print(row)
             resp_values = [LIKERT_MAP[row[x]] if x != "response_timestamp" else str(row[x]) for x in fieldnames]
             resp_values[0] = f"'{resp_values[0]}'"
-            print(",".join([str(x) for x in resp_values]))
 
             insert = f"""
                 INSERT INTO survey_datapoints ({",".join(fieldnames)},quarter,year)
                 VALUES ({",".join([str(x) for x in resp_values])},"{quarter}","{year}")"""
-            print(insert)
             db.execute(insert)
         db.commit()
-    print(fieldnames)
 
 
 @bp.route('/showcsvs', methods=('GET', 'POST'))
 def showcsvs():
     files = os.listdir(current_app.config['UPLOAD_FOLDER'])
-    print(files)
     return render_template('upload/showcsvs.html',files=files)
     
 
