@@ -15,7 +15,7 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
-        UPLOAD_FOLDER=os.path.join(app.instance_path, 'uploads/')
+        UPLOAD_FOLDER=os.path.join(app.instance_path, 'uploads/'),
     )
     app.wsgi_app = ProxyFix(
         app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1

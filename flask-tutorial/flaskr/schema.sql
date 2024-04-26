@@ -66,7 +66,8 @@ INSERT INTO questions(question_name, construct_id) SELECT 'policies_meaningful',
 CREATE TABLE survey_datapoints (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   response_timestamp TIMESTAMP NOT NULL,
-  survey_instance int NOT NULL,
+  quarter text NOT NULL,
+  year text NOT NULL,
   will_complete int NOT NULL,
   fail_learn_opportunity int NOT NULL,
   responsibility_shared int NOT NULL,
@@ -117,7 +118,7 @@ CREATE TABLE survey_datapoints (
   CHECK (policies_discoverable IN(1, 2, 3, 4, 5)),
   CHECK (policies_meaningful IN(1, 2, 3, 4, 5)),
 
-  FOREIGN KEY (survey_instance) REFERENCES survey_instances,
+  FOREIGN KEY (quarter, year) REFERENCES survey_instances,
   FOREIGN KEY (will_complete) REFERENCES question(construct_name),
   FOREIGN KEY (fail_learn_opportunity) REFERENCES question(construct_name),
   FOREIGN KEY (responsibility_shared) REFERENCES question(construct_name),
