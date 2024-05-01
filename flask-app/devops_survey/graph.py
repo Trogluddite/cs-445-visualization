@@ -66,6 +66,7 @@ def showInstance():
     buf = BytesIO()
     plt.savefig(buf, format='png')
     data = base64.b64encode(buf.getbuffer()).decode('ascii')
+    plt.close()
     return render_template('graph/showInstance.html', data=data)
 
 def get_averages(survey_instance_name):
